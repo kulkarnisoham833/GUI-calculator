@@ -18,11 +18,12 @@ def clear():
 
 def pressequal():
     global expression
-    total = str(eval(expression))
-
+    try:
+        total = str(eval(expression))
+    except(SyntaxError):
+        total = str(eval(expression))
+    expression = str(total)
     equation.set(total)
-
-    expression = ""
 
 
 gui = tk.Tk()
