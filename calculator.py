@@ -2,52 +2,88 @@ import tkinter as tk
 expression = ""
 
 
-def buttonpress(num):
+def press(num):
     global expression
-    expression += str(num)
+    expression = expression + str(num)
+
+    # update the expression by using set method
+    equation.set(expression)
 
 
-def calculate():  # note that calculate should be called after some buttonpress()'s, since it's pretty much an equal sign
+def clear():
     global expression
-    total = eval(expression)
-    print(total)
+    expression = ""
+    equation.set("")
 
 
-# init gui
+def pressequal():
+    global expression
+    total = str(eval(expression))
+
+    equation.set(total)
+
+    expression = ""
+
+
 gui = tk.Tk()
-gui.title("Calculator")
-gui.geometry("300x300")
-gui.configure(background="black")
-# Create buttons
-button_1 = tk.Button(gui, text="1", fg="white", bg="black",
-                     command=buttonpress(1), width=3, height=1)
-button_2 = tk.Button(gui, text="2", fg="white", bg="black",
-                     command=buttonpress(2), width=3, height=1)
-button_3 = tk.Button(gui, text="3", fg="white", bg="black",
-                     command=buttonpress(3), width=3, height=1)
-button_4 = tk.Button(gui, text="4", fg="white", bg="black",
-                     command=buttonpress(4), width=3, height=1)
-button_5 = tk.Button(gui, text="5", fg="white", bg="black",
-                     command=buttonpress(5), width=3, height=1)
-button_6 = tk.Button(gui, text="6", fg="white", bg="black",
-                     command=buttonpress(6), width=3, height=1)
-button_7 = tk.Button(gui, text="7", fg="white", bg="black",
-                     command=buttonpress(7), width=3, height=1)
-button_8 = tk.Button(gui, text="8", fg="white", bg="black",
-                     command=buttonpress(8), width=3, height=1)
-button_9 = tk.Button(gui, text="9", fg="white", bg="black",
-                     command=buttonpress(9), width=3, height=1)
-button_0 = tk.Button(gui, text="0", fg="white", bg="black",
-                     command=buttonpress(0), width=3, height=1)
-button_add = tk.Button(gui, text="+", fg="white", bg="black",
-                       command=buttonpress("+"), width=3, height=1)
-button_sub = tk.Button(gui, text="-", fg="white", bg="black",
-                       command=buttonpress("-"), width=3, height=1)
-button_mul = tk.Button(gui, text="*", fg="white", bg="black",
-                       command=buttonpress("*"), width=3, height=1)
-button_div = tk.Button(gui, text="/", fg="white", bg="black",
-                       command=buttonpress("/"), width=3, height=1)
-button_equal = tk.Button(gui, text="=", fg="white",
-                         bg="black", command=calculate(), width=3, height=1)
-button_clear = tk.Button(gui, text="C", fg="white",
-                         bg="black", width=3, height=1)
+gui.geometry("500x500")
+button1 = tk.Button(gui, text="1", width=10, height=5,
+                    bg="black", fg="white", command=lambda: press(1))
+button1.grid(row=0, column=0)
+button2 = tk.Button(gui, text="2", width=10, height=5,
+                    bg="black", fg="white", command=lambda: press(2))
+button2.grid(row=0, column=1)
+button3 = tk.Button(gui, text="3", width=10, height=5,
+                    bg="black", fg="white", command=lambda: press(3))
+button3.grid(row=0, column=2)
+button4 = tk.Button(gui, text="4", width=10, height=5,
+                    bg="black", fg="white", command=lambda: press(4))
+button4.grid(row=1, column=0)
+button5 = tk.Button(gui, text="5", width=10, height=5,
+                    bg="black", fg="white", command=lambda: press(5))
+button5.grid(row=1, column=1)
+button6 = tk.Button(gui, text="6", width=10, height=5,
+                    bg="black", fg="white", command=lambda: press(6))
+button6.grid(row=1, column=2)
+button7 = tk.Button(gui, text="7", width=10, height=5,
+                    bg="black", fg="white", command=lambda: press(7))
+button7.grid(row=2, column=0)
+button8 = tk.Button(gui, text="8", width=10, height=5,
+                    bg="black", fg="white", command=lambda: press(8))
+button8.grid(row=2, column=1)
+button9 = tk.Button(gui, text="9", width=10, height=5,
+                    bg="black", fg="white", command=lambda: press(9))
+button9.grid(row=2, column=2)
+button0 = tk.Button(gui, text="0", width=10, height=5,
+                    bg="black", fg="white", command=lambda: press(0))
+button0.grid(row=3, column=1)
+
+buttonclear = tk.Button(gui, text="clear", width=10, height=5,
+                        bg="black", fg="white", command=lambda: clear())
+buttonclear.grid(row=3, column=0)
+
+buttonequal = tk.Button(gui, text="=", width=10, height=5,
+                        bg="black", fg="white", command=lambda: pressequal())
+buttonequal.grid(row=3, column=2)
+
+buttonplus = tk.Button(gui, text="+", width=10, height=5,
+                       bg="black", fg="white", command=lambda: press("+"))
+buttonplus.grid(row=0, column=4)
+
+buttonminus = tk.Button(gui, text="-", width=10, height=5,
+                        bg="black", fg="white", command=lambda: press("-"))
+buttonminus.grid(row=1, column=4)
+
+buttonmult = tk.Button(gui, text="*", width=10, height=5,
+                       bg="black", fg="white", command=lambda: press("*"))
+buttonmult.grid(row=2, column=4)
+
+buttondiv = tk.Button(gui, text="/", width=10, height=5,
+                      bg="black", fg="white", command=lambda: press("/"))
+buttondiv.grid(row=3, column=4)
+
+equation = tk.StringVar()
+expression_field = tk.Label(gui, textvariable=equation)
+expression_field.grid(columnspan=4)
+
+gui.mainloop()
