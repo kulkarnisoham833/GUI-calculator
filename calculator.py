@@ -1,9 +1,14 @@
 import tkinter as tk
+import math
 expression = ""
 
 
 def press(num):
     global expression
+    if num == "π":
+        expression = expression + str(math.pi)
+        equation.set(expression)
+        return
     expression = expression + str(num)
 
     # update the expression by using set method
@@ -26,8 +31,10 @@ def pressequal():
     equation.set(total)
 
 
+# create gui
 gui = tk.Tk()
 gui.geometry("500x500")
+# init buttons
 button1 = tk.Button(gui, text="1", width=10, height=5,
                     bg="black", fg="white", command=lambda: press(1))
 button1.grid(row=0, column=0)
@@ -82,6 +89,12 @@ buttonmult.grid(row=2, column=4)
 buttondiv = tk.Button(gui, text="/", width=10, height=5,
                       bg="black", fg="white", command=lambda: press("/"))
 buttondiv.grid(row=3, column=4)
+buttonpi = tk.Button(gui, text="π", width=10, height=5,
+                     bg="black", fg="white", command=lambda: press("π"))
+buttonpi.grid(row=0, column=5)
+buttondecimal = tk.Button(gui, text=".", width=10, height=5,
+                          bg="black", fg="white", command=lambda: press("."))
+buttondecimal.grid(row=1, column=5)
 
 equation = tk.StringVar()
 expression_field = tk.Label(gui, textvariable=equation)
